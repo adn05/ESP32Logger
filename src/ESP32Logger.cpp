@@ -11,10 +11,11 @@
 
 ESP32Logger Log;
 
-void ESP32Logger::init(Print* output, ESP32Timestamp useTimestamp) {
+void ESP32Logger::init(Print* output, ESP32LogLevel logLevel, ESP32Timestamp useTimestamp) {
 	_output = output;
+	_logLevel = logLevel;
 	_useTimestamp = useTimestamp;
-	_isActive = false;
+	_isActive = true;
 }
 
 void ESP32Logger::start() {
@@ -45,19 +46,21 @@ void ESP32Logger::log(ESP32LogLevel logLevel, const char* format, ...) {
 		}
 		else {
 			unsigned long timestamp = millis();
-			snprintf(buffer, sizeof(buffer), "%011lu ", timestamp);
+			// Format the timestamp as min 6-digit number with leading spaces
+			// This is to ensure that the timestamp is always 6 digits, e.g., "  123"
+			snprintf(buffer, sizeof(buffer), "%6lu ", timestamp);
 		}
 		print(buffer);
 	}
 	switch (logLevel) {
 	case ESP32LogLevel::Debug:
-		print("DBG ");
+		print("D ");
 		break;
 	case ESP32LogLevel::Error:
-		print("ERR ");
+		print("E ");
 		break;
 	case ESP32LogLevel::Info:
-		print("INF ");
+		print("I ");
 		break;
 	}
 

@@ -24,7 +24,7 @@ enum class ESP32Timestamp {
 
 class ESP32Logger {
 public:
-	void init(Print* output, ESP32Timestamp useTimestamp = ESP32Timestamp::TimestampSinceStart);
+	void init(Print* output, ESP32LogLevel logLevel = ESP32LogLevel::Info, ESP32Timestamp useTimestamp = ESP32Timestamp::TimestampSinceStart);
 	void start();
 	void stop();
 	void setLogLevel(ESP32LogLevel logLevel);
@@ -68,4 +68,15 @@ extern ESP32Logger Log;
 
 #endif // #ifdef ESP32DEBUGGING
 
+// Set remplacing macros for more readable code
+#define LOG_INIT DBGINI
+#define LOG_START() DBGSTA
+#define LOG_STOP() DBGSTP
+#define LOG_LEVEL DBGLEV
+#define LOG_CODE DBGCOD
+#define LOG_MESSAGE DBGLOG
+#define LOG_CHECK DBGCHK
 
+#define LOG_DEBUG(logmsg, ...) LOG_MESSAGE(Debug, logmsg, ##__VA_ARGS__)
+#define LOG_INFO(logmsg, ...) LOG_MESSAGE(Info, logmsg, ##__VA_ARGS__)
+#define LOG_ERROR(logmsg, ...) LOG_MESSAGE(Error, logmsg, ##__VA_ARGS__)
