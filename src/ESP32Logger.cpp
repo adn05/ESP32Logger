@@ -62,6 +62,9 @@ void ESP32Logger::log(ESP32LogLevel logLevel, const char* format, ...) {
 	case ESP32LogLevel::Info:
 		print("I ");
 		break;
+	case ESP32LogLevel::Warn:
+		print("W ");
+		break;
 	}
 
 	va_list args;

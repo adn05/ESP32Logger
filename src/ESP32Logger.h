@@ -8,10 +8,13 @@
 #ifndef _ESP32Logger_h
 #define _ESP32Logger_h
 
+#define ESP32DEBUGGING 1 // Enable debugging for the ESP32Logger
+
 #include "Arduino.h"
 
 enum class ESP32LogLevel {
 	Error,
+	Warn,
 	Info,
 	Debug
 };
@@ -40,7 +43,6 @@ private:
 	void printEoL();
 };
 
-#endif // #ifndef _ESP32Logger_h
 
 #ifdef ESP32DEBUGGING
 
@@ -79,4 +81,7 @@ extern ESP32Logger Log;
 
 #define LOG_DEBUG(logmsg, ...) LOG_MESSAGE(Debug, logmsg, ##__VA_ARGS__)
 #define LOG_INFO(logmsg, ...) LOG_MESSAGE(Info, logmsg, ##__VA_ARGS__)
+#define LOG_WARN(logmsg, ...) LOG_MESSAGE(Warn, logmsg, ##__VA_ARGS__)
 #define LOG_ERROR(logmsg, ...) LOG_MESSAGE(Error, logmsg, ##__VA_ARGS__)
+
+#endif // #ifndef _ESP32Logger_h
