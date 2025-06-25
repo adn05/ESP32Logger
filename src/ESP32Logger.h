@@ -8,8 +8,6 @@
 #ifndef _ESP32Logger_h
 #define _ESP32Logger_h
 
-#define ESP32DEBUGGING 1 // Enable debugging for the ESP32Logger
-
 #include "Arduino.h"
 
 enum class ESP32LogLevel {
